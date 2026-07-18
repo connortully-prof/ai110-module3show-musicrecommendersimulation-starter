@@ -2,32 +2,21 @@
 
 ## Project Summary
 
-In this project you will build and explain a small music recommender system.
-
-Your goal is to:
-
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
+This project builds a lightweight content-based recommender that suggests songs from a small catalog by matching a user profile to musical attributes such as genre, mood, and energy. The system is intentionally simple so it can show how raw data is transformed into recommendations and how those recommendations can reflect both taste and bias.
 
 ---
 
 ## How The System Works
 
-Explain your design in plain language.
+Real music platforms use many signals to predict what a listener might enjoy next, including playlists, skips, likes, and audio features. In this version, the recommender uses a much smaller set of features that are easy to understand: genre, mood, energy, and acousticness. Each song is scored against a user profile by rewarding close matches in genre and mood and by giving extra points when the song’s energy is near the target energy level. The songs with the highest scores are returned as recommendations.
 
-Some prompts to answer:
+The core recipe is:
+- +2.0 points for a genre match
+- +1.0 point for a mood match
+- +energy closeness points based on how near the song is to the target energy
+- +0.5 points for acoustic preference when the song is highly acoustic
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
-
-You can include a simple diagram or bullet list if helpful.
+The data flow is simple: Input user preferences → score each song in the catalog → rank the songs → return the top results.
 
 ---
 
@@ -39,20 +28,20 @@ You can include a simple diagram or bullet list if helpful.
 
    ```bash
    python -m venv .venv
-   source .venv/bin/activate      # Mac or Linux
-   .venv\Scripts\activate         # Windows
+   .venv\Scripts\activate
+   ```
 
-2. Install dependencies
+2. Install dependencies:
 
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 3. Run the app:
 
-```bash
-python -m src.main
-```
+   ```bash
+   python -m src.main
+   ```
 
 ### Running Tests
 
@@ -62,61 +51,43 @@ Run the starter tests with:
 pytest
 ```
 
-You can add more tests in `tests/test_recommender.py`.
-
 ---
 
 ## Sample Recommendation Output
 
-Paste a sample of your recommender's output here as a text block so a reader can see what it produces:
+Example output for a happy pop profile:
 
-```
-# e.g.:
-# User profile: genre=indie, mood=chill, energy=low
-# Recommendations:
-#   1. ...
-#   2. ...
-#   3. ...
-```
+```text
+Happy pop profile:
 
-**Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
+Sunrise City - Score: 4.47
+Because: genre match (+2.0); mood match (+1.0); energy closeness (+1.47)
+
+Gym Hero - Score: 3.47
+Because: genre match (+2.0); mood mismatch (expected happy); energy closeness (+1.47)
+
+Rooftop Lights - Score: 2.47
+Because: genre mismatch (expected pop); mood match (+1.0); energy closeness (+1.47)
+```
 
 ---
 
-## Experiments You Tried
+## Experiments I Tried
 
-Use this section to document the experiments you ran. For example:
-
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+I tested the recommender with a few different user profiles to see whether the ranking felt intuitive. The system performs best when the user profile is clear and consistent, such as “happy pop” or “chill lofi.” I also noticed that genre and mood differences strongly shape the rankings, which means the output is easy to explain but can be somewhat narrow.
 
 ---
 
 ## Limitations and Risks
 
-Summarize some limitations of your recommender.
-
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
+This recommender is intentionally simple and works best on a small catalog. It does not understand lyrics, artist history, or listening context, and it can over-prioritize obvious genre or mood matches. Because the system uses a small number of hand-picked features, it may miss songs that feel right for the user in a more subtle way.
 
 ---
 
 ## Reflection
 
-Read and complete `model_card.md`:
+The main lesson was that even simple scoring rules can create recommendations that feel meaningful. I also learned that recommender systems can appear thoughtful while still being biased toward the features they were given, which makes documentation and careful testing important.
 
-[**Model Card**](model_card.md)
-
-Write 1 to 2 paragraphs here about what you learned:
-
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
-
+See the model card for a more detailed explanation: [model_card.md](model_card.md).
 
 
