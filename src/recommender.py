@@ -130,6 +130,13 @@ def score_song(user_prefs: Union[UserProfile, Dict], song: Dict) -> Tuple[float,
     score += energy_bonus
     reasons.append(f"energy closeness (+{energy_bonus:.2f})")
 
+    target_valence = float(prefs.get("valence", 0.5))
+    valence_gap = abs(float(song.get("valence", 0.0)) - target_valence)
+    valence_similarity = max(0.0, 1.0 - valence_gap)
+    valence_bonus = round(valence_similarity * 0.75, 2)
+    score += valence_bonus
+    reasons.append(f"valence similarity (+{valence_bonus:.2f})")
+
     if bool(prefs.get("likes_acoustic", False)):
         acoustic_bonus = 0.5 if float(song.get("acousticness", 0.0)) >= 0.7 else 0.0
         score += acoustic_bonus

@@ -1,4 +1,4 @@
-from src.recommender import Song, UserProfile, Recommender
+from src.recommender import Song, UserProfile, Recommender, score_song
 
 def make_small_recommender() -> Recommender:
     songs = [
@@ -59,3 +59,24 @@ def test_explain_recommendation_returns_non_empty_string():
     explanation = rec.explain_recommendation(user, song)
     assert isinstance(explanation, str)
     assert explanation.strip() != ""
+
+
+def test_score_song_uses_valence_similarity():
+    user_prefs = {
+        "genre": "pop",
+        "mood": "happy",
+        "energy": 0.8,
+        "valence": 0.9,
+    }
+    song = {
+        "genre": "pop",
+        "mood": "happy",
+        "energy": 0.8,
+        "valence": 0.9,
+        "acousticness": 0.2,
+    }
+
+    score, reasons = score_song(user_prefs, song)
+
+    assert score > 0
+    assert any("valence" in reason for reason in reasons)
