@@ -7,9 +7,9 @@ def main() -> None:
     songs = load_songs("data/songs.csv")
 
     profiles = [
-        ("Happy pop", {"genre": "pop", "mood": "happy", "energy": 0.8, "likes_acoustic": False}),
-        ("Chill lofi", {"genre": "lofi", "mood": "chill", "energy": 0.4, "likes_acoustic": True}),
-        ("Intense rock", {"genre": "rock", "mood": "intense", "energy": 0.9, "likes_acoustic": False}),
+        ("Happy pop", {"genre": "pop", "mood": "happy", "energy": 0.8, "valence": 0.9, "likes_acoustic": False}),
+        ("Chill lofi", {"genre": "lofi", "mood": "chill", "energy": 0.4, "valence": 0.7, "likes_acoustic": True}),
+        ("Intense rock", {"genre": "rock", "mood": "intense", "energy": 0.9, "valence": 0.4, "likes_acoustic": False}),
     ]
 
     for name, user_prefs in profiles:

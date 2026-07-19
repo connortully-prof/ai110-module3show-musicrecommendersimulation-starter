@@ -1,5 +1,8 @@
 from src.recommender import Song, UserProfile, Recommender, score_song
 
+
+# These tests check that the recommender still behaves sensibly as the scoring rules evolve.
+
 def make_small_recommender() -> Recommender:
     songs = [
         Song(

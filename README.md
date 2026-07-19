@@ -2,18 +2,19 @@
 
 ## Project Summary
 
-This project builds a lightweight content-based recommender that suggests songs from a small catalog by matching a user profile to musical attributes such as genre, mood, and energy. The system is intentionally simple so it can show how raw data is transformed into recommendations and how those recommendations can reflect both taste and bias.
+This project builds a lightweight content-based recommender that suggests songs from a small catalog by matching a user profile to musical attributes such as genre, mood, energy, and emotional tone. The system is intentionally simple so it can show how raw data is transformed into recommendations and how those recommendations can reflect both taste and bias.
 
 ---
 
 ## How The System Works
 
-Real music platforms use many signals to predict what a listener might enjoy next, including playlists, skips, likes, and audio features. In this version, the recommender uses a much smaller set of features that are easy to understand: genre, mood, energy, and acousticness. Each song is scored against a user profile by rewarding close matches in genre and mood and by giving extra points when the song’s energy is near the target energy level. The songs with the highest scores are returned as recommendations.
+Real music platforms use many signals to predict what a listener might enjoy next, including playlists, skips, likes, and audio features. In this version, the recommender uses a much smaller set of features that are easy to understand: genre, mood, energy, valence, and acousticness. Each song is scored against a user profile by rewarding close matches in genre and mood and by giving extra points when the song’s energy and emotional tone are near the target. The songs with the highest scores are returned as recommendations.
 
 The core recipe is:
 - +2.0 points for a genre match
 - +1.0 point for a mood match
 - +energy closeness points based on how near the song is to the target energy
+- +valence similarity points for matching emotional mood
 - +0.5 points for acoustic preference when the song is highly acoustic
 
 The data flow is simple: Input user preferences → score each song in the catalog → rank the songs → return the top results.
@@ -74,7 +75,7 @@ Because: genre mismatch (expected pop); mood match (+1.0); energy closeness (+1.
 
 ## Experiments I Tried
 
-I tested the recommender with a few different user profiles to see whether the ranking felt intuitive. The system performs best when the user profile is clear and consistent, such as “happy pop” or “chill lofi.” I also noticed that genre and mood differences strongly shape the rankings, which means the output is easy to explain but can be somewhat narrow.
+I tested the recommender with a few different user profiles to see whether the ranking felt intuitive. The system performs best when the user profile is clear and consistent, such as “happy pop” or “chill lofi.” I also noticed that genre, mood, and emotional tone all shape the rankings, which makes the output easy to explain but still somewhat narrow.
 
 ---
 
@@ -87,7 +88,5 @@ This recommender is intentionally simple and works best on a small catalog. It d
 ## Reflection
 
 The main lesson was that even simple scoring rules can create recommendations that feel meaningful. I also learned that recommender systems can appear thoughtful while still being biased toward the features they were given, which makes documentation and careful testing important.
-
-See the model card for a more detailed explanation: [model_card.md](model_card.md).
 
 

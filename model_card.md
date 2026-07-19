@@ -14,7 +14,7 @@ This recommender is designed for classroom exploration and simple music recommen
 
 ## 3. How the Model Works
 
-The model uses a few easy-to-understand song features to estimate whether a track fits a user’s taste. It compares the song’s genre and mood to the user’s favorites, then checks whether the song’s energy is close to the target energy level. If the user prefers acoustic songs, that can give the song a small extra boost. The highest-scoring songs are returned first.
+The model uses a few easy-to-understand song features to estimate whether a track fits a user’s taste. It compares the song’s genre and mood to the user’s favorites, then checks whether the song’s energy and emotional tone are close to the target. If the user prefers acoustic songs, that can give the song a small extra boost. The highest-scoring songs are returned first.
 
 ---
 
@@ -26,7 +26,7 @@ The dataset includes 10 songs with features such as genre, mood, energy, tempo, 
 
 ## 5. Strengths
 
-The system works well for simple cases where a user clearly prefers a certain genre and mood. It gives intuitive results for profiles like “happy pop” or “chill lofi,” and its scoring logic is easy to explain because each recommendation comes with a reason list.
+The system works well for simple cases where a user clearly prefers a certain genre and mood. It gives intuitive results for profiles like “happy pop” or “chill lofi,” and its scoring logic is easy to explain because each recommendation comes with a reason list that highlights the matching features.
 
 ---
 
